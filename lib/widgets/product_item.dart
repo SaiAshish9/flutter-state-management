@@ -13,8 +13,8 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
-    // listen:true
+    final product = Provider.of<Product>(context, listen: false);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -28,14 +28,19 @@ class ProductItem extends StatelessWidget {
               },
               child: Image.network(product.imageUrl, fit: BoxFit.cover)),
           footer: GridTileBar(
-              leading: IconButton(
-                  icon: Icon(product.isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border),
-                  onPressed: () {
-                    product.toggleFavoriteStatus();
-                  },
-                  color: Theme.of(context).accentColor),
+              leading: Consumer<Product>(
+                builder: (ctx, product, _) => IconButton(
+                //  ctx,product,child
+                    icon: Icon(product.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border),
+                    onPressed: () {
+                      product.toggleFavoriteStatus();
+                    },
+                    // label:child,
+                    color: Theme.of(context).accentColor),
+                    // child:Text('Never Changes')
+              ),
               trailing: IconButton(
                   icon: Icon(Icons.shopping_cart),
                   onPressed: () {},
