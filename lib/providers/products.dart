@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'product.dart';
+import 'dart:convert';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -65,6 +67,18 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
+    const url =
+        'https://flutter-state-management-5ccca.firebaseio.com/products.json';
+
+    http.post(url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite,
+        }));
+
     final newProduct = Product(
         title: product.title,
         description: product.description,
@@ -73,7 +87,6 @@ class Products with ChangeNotifier {
         id: DateTime.now().toString());
 
     _items.add(newProduct);
-    // _items.add(value);
     notifyListeners();
   }
 
