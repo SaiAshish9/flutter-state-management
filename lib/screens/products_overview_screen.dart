@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
-// import '../widgets/badge.dart';
+import '../widgets/badge.dart';
 import '../providers/cart.dart';
 import './cart_screen.dart';
 import '../providers/products.dart';
@@ -25,7 +25,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
-    // Provider.of<Products>(context,listen: false).fetchAndSetProducts();
+    // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
     // Future.delayed(Duration.zero).then((_) {
     //   Provider.of<Products>(context).fetchAndSetProducts();
     // });
@@ -68,30 +68,30 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               Icons.more_vert,
             ),
             itemBuilder: (_) => [
-              PopupMenuItem(
-                child: Text('Only Favorites'),
-                value: FilterOptions.Favorites,
-              ),
-              PopupMenuItem(
-                child: Text('Show All'),
-                value: FilterOptions.All,
-              ),
-            ],
+                  PopupMenuItem(
+                    child: Text('Only Favorites'),
+                    value: FilterOptions.Favorites,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Show All'),
+                    value: FilterOptions.All,
+                  ),
+                ],
           ),
-          // Consumer<Cart>(
-          //   builder: (_, cart, ch) => Badge(
-          //         child: ch,
-          //         value: cart.itemCount.toString(),
-          //       ),
-          //   child: IconButton(
-          //     icon: Icon(
-          //       Icons.shopping_cart,
-          //     ),
-          //     onPressed: () {
-          //       Navigator.of(context).pushNamed(CartScreen.routeName);
-          //     },
-          //   ),
-          // ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+                  child: ch,
+                  value: cart.itemCount.toString(),
+                ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+          ),
         ],
       ),
       drawer: AppDrawer(),
