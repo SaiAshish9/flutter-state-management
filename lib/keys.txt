@@ -1,4 +1,0 @@
-https://flutter-state-management-5ccca.firebaseio.com/
-https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyDoZ5IB4Ioe5jU-kSBht8pVBCQDJcuZAE4
-signUp
-signInWithPassword

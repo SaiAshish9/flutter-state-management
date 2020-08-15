@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
 
 class Product with ChangeNotifier {
@@ -10,6 +11,8 @@ class Product with ChangeNotifier {
   final double price;
   final String imageUrl;
   bool isFavorite;
+  final baseUrl = FlutterConfig.get('BASE_URL');
+
 
   Product({
     @required this.id,
@@ -30,7 +33,7 @@ class Product with ChangeNotifier {
     isFavorite = !isFavorite;
     notifyListeners();
     final url =
-        'https://flutter-state-management-5ccca.firebaseio.com/userFavorites/$userId/$id.json?auth=$token';
+        '$baseUrl/userFavorites/$userId/$id.json?auth=$token';
     try {
       final response = await http.put(
         url,
